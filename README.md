@@ -1,1 +1,1 @@
-siemaneczko kochani
+Run 'Get-Help .\importData.ps1 -Detailed' to get usage
