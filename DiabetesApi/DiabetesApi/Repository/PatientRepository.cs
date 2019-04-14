@@ -103,6 +103,8 @@ namespace DiabetesApi
         {
             try
             {
+                item.InternalId = _context.Patients.Find(p => p.patient_nbr == patient_nbr).First().InternalId;
+
                 ReplaceOneResult actionResult
                     = await _context.Patients
                                     .ReplaceOneAsync(n => n.patient_nbr == patient_nbr

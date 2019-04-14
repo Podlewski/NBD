@@ -31,7 +31,6 @@ namespace DiabetesApi.Controllers
         }
 
         // GET api/Patients/Male - all patients with gender == ""
-        // ex: http://localhost:53617/api/Patients/Test/2018-01-01/10000
         [HttpGet("gender/{gender}")]
         public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
@@ -48,6 +47,57 @@ namespace DiabetesApi.Controllers
                 gender = newPatient.gender,
                 patient_nbr = newPatient.patient_nbr,
                 diabetes_med = newPatient.diabetes_med,
+
+                #region rest
+                num_medications = newPatient.num_medications,
+                admission_type_id = newPatient.admission_type_id,
+                acarbose = newPatient.acarbose,
+                medical_specialty = newPatient.medical_specialty,
+                rosiglitazone = newPatient.rosiglitazone,
+                glipizide = newPatient.glipizide,
+                chlorpropamide = newPatient.chlorpropamide,
+                metformin_rosiglitazone = newPatient.metformin_rosiglitazone,
+                time_in_hospital = newPatient.time_in_hospital,
+                examide = newPatient.examide,
+                readmitted = newPatient.readmitted,
+                encounter_id = newPatient.encounter_id,
+                max_glu_serum = newPatient.max_glu_serum,
+                num_lab_procedures = newPatient.num_lab_procedures,
+                change = newPatient.change,
+                num_procedures = newPatient.num_procedures,
+                diag_1 = newPatient.diag_1,
+                insulin = newPatient.insulin,
+                tolazamide = newPatient.tolazamide,
+                a1_cresult = newPatient.a1_cresult,
+                number_outpatient = newPatient.number_outpatient,
+                glyburide = newPatient.glyburide,
+                nateglinide = newPatient.nateglinide,
+                glimepiride = newPatient.glimepiride,
+                discharge_disposition_id = newPatient.discharge_disposition_id,
+                payer_code = newPatient.payer_code,
+                age = newPatient.age,
+                number_inpatient = newPatient.number_inpatient,
+                glimepiride_pioglitazone = newPatient.glimepiride_pioglitazone,
+                repaglinide = newPatient.repaglinide,
+                miglitol = newPatient.miglitol,
+                tolbutamide = newPatient.tolbutamide,
+                weight = newPatient.weight,
+                pioglitazone = newPatient.pioglitazone,
+                citoglipton = newPatient.citoglipton,
+                acetohexamide = newPatient.acetohexamide,
+                metformin = newPatient.metformin,
+                troglitazone = newPatient.troglitazone,
+                diag_2 = newPatient.diag_2,
+                number_diagnoses = newPatient.number_diagnoses,
+                glyburide_metformin = newPatient.glyburide_metformin,
+                diag_3 = newPatient.diag_3,
+                glipizide_metformin = newPatient.glipizide_metformin,
+                metformin_pioglitazone = newPatient.metformin_pioglitazone,
+                admission_source_id = newPatient.admission_source_id,
+                race = newPatient.race,
+                number_emergency = newPatient.number_emergency,
+                #endregion
+
                 //CreatedOn = DateTime.Now,
                 UpdatedOn = DateTime.Now
             });
