@@ -4,7 +4,6 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DiabetesApi
@@ -33,7 +32,6 @@ namespace DiabetesApi
         }
 
         // query after Id or InternalId (BSonId value)
-        //
         public async Task<Patient> GetPatient(string id)
         {
             try
@@ -52,7 +50,6 @@ namespace DiabetesApi
         }
 
         // query after body text, updated time, and header image size
-        //
         public async Task<IEnumerable<Patient>> GetPatient(int patient_nbr, DateTime updatedFrom)
         {
             try
@@ -149,8 +146,6 @@ namespace DiabetesApi
             }
         }
 
-        
-        // Demo function - full document update
         public async Task<bool> UpdatePatientNumber(string id, int patient_nbr)
         {
             var item = await GetPatient(id) ?? new Patient();
@@ -176,6 +171,5 @@ namespace DiabetesApi
                 throw ex;
             }
         }
-        
     }
 }

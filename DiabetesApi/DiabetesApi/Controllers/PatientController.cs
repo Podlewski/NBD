@@ -1,9 +1,8 @@
-﻿using System;
+﻿using DiabetesApi.Model;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DiabetesApi.Model;
-using Microsoft.AspNetCore.Mvc;
-using 
 
 namespace DiabetesApi.Controllers
 {

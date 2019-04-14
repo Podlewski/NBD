@@ -1,9 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DiabetesApi.Model
 {
@@ -21,7 +18,7 @@ namespace DiabetesApi.Model
         // attribute to gain control on datetime serialization
         public DateTime UpdatedOn { get; set; } = DateTime.Now;
 
-        //rest of fields
+        #region RestOfFields
         //public string diabetes_med { get; set; }
         public int num_medications { get; set; }
         //public int patient_nbr { get; set; }
@@ -72,5 +69,6 @@ namespace DiabetesApi.Model
         public int admission_source_id { get; set; }
         public string race { get; set; }
         public int number_emergency { get; set; }
+        #endregion
     }
 }
