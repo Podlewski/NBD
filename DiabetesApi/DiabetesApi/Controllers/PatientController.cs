@@ -24,18 +24,18 @@ namespace DiabetesApi.Controllers
         }
 
         // GET api/Patients/5 - retrieves a specific Patient using either Id or InternalId (BSonId)
-        [HttpGet("{id}")]
-        public async Task<Patient> Get(string id)
+        [HttpGet("{patient_nbr}")]
+        public async Task<Patient> Get(int patient_nbr)
         {
-            return await _PatientRepository.GetPatient(id) ?? new Patient();
+            return await _PatientRepository.GetPatient(patient_nbr) ?? new Patient();
         }
 
-        // GET api/Patients/text/date/size
+        // GET api/Patients/Male - all patients with gender == ""
         // ex: http://localhost:53617/api/Patients/Test/2018-01-01/10000
-        [HttpGet("{bodyText}")]
-        public async Task<IEnumerable<Patient>> GetPatient(int patient_nbr, DateTime updatedFrom)
+        [HttpGet("{gender}")]
+        public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
-            return await _PatientRepository.GetPatient(patient_nbr, updatedFrom)
+            return await _PatientRepository.GetPatient(gender)
                         ?? new List<Patient>();
         }
 
@@ -45,7 +45,6 @@ namespace DiabetesApi.Controllers
         {
             _PatientRepository.AddPatient(new Patient
             {
-                Id = newPatient.Id,
                 gender = newPatient.gender,
                 patient_nbr = newPatient.patient_nbr,
                 diabetes_med = newPatient.diabetes_med,
@@ -56,14 +55,14 @@ namespace DiabetesApi.Controllers
 
         // PUT api/Patients/5 - updates a specific Patient
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody]int value)
+        public void Put(int id, [FromBody]int value)
         {
-            _PatientRepository.UpdatePatientNumber(id, value);
+            _PatientRepository.UpdateNumberOfMedication(id, value);
         }
 
         // DELETE api/Patients/5 - deletes a specific Patient
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public void Delete(int id)
         {
             _PatientRepository.RemovePatient(id);
         }

@@ -26,20 +26,20 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
 
         // query after Id or InternalId (BSonId value)
-        public async Task<Patient> GetPatient(string id)
+        public async Task<Patient> GetPatient(int patient_nbr)
         {
             try
             {
-                ObjectId internalId = GetInternalId(id);
+                //ObjectId internalId = GetInternalId(patient_nbr);
                 return await _context.Patients
-                                .Find(Patient => Patient.Id == id
-                                        || Patient.InternalId == internalId)
+                                .Find(Patient => Patient.patient_nbr == patient_nbr
+                                        //|| Patient.InternalId == internalId
+                                        )
                                 .FirstOrDefaultAsync();
             }
             catch (Exception ex)
@@ -49,18 +49,17 @@ namespace DiabetesApi
             }
         }
 
-        // query after body text, updated time, and header image size
-        public async Task<IEnumerable<Patient>> GetPatient(int patient_nbr, DateTime updatedFrom)
+        // 
+        public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
             try
             {
-                var query = _context.Patients.Find(Patient => Patient.patient_nbr == patient_nbr && Patient.UpdatedOn >= updatedFrom);
+                var query = _context.Patients.Find(Patient => Patient.gender == gender);
 
                 return await query.ToListAsync();
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
@@ -82,32 +81,30 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
 
-        public async Task<bool> RemovePatient(string id)
+        public async Task<bool> RemovePatient(int patient_nbr)
         {
             try
             {
                 DeleteResult actionResult
                     = await _context.Patients.DeleteOneAsync(
-                        Builders<Patient>.Filter.Eq("Id", id));
+                        Builders<Patient>.Filter.Eq("patient_nbr", patient_nbr));
 
                 return actionResult.IsAcknowledged
                     && actionResult.DeletedCount > 0;
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
 
-        public async Task<bool> UpdatePatient(string id, string diabetes_med)
+        public async Task<bool> UpdatePatient(int patient_nbr, string diabetes_med)
         {
-            var filter = Builders<Patient>.Filter.Eq(s => s.Id, id);
+            var filter = Builders<Patient>.Filter.Eq(s => s.patient_nbr, patient_nbr);
             var update = Builders<Patient>.Update
                             .Set(s => s.diabetes_med, diabetes_med)
                             .CurrentDate(s => s.UpdatedOn);
@@ -122,18 +119,17 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
 
-        public async Task<bool> UpdatePatient(string id, Patient item)
+        public async Task<bool> UpdatePatient(int patient_nbr, Patient item)
         {
             try
             {
                 ReplaceOneResult actionResult
                     = await _context.Patients
-                                    .ReplaceOneAsync(n => n.Id.Equals(id)
+                                    .ReplaceOneAsync(n => n.patient_nbr.Equals(patient_nbr)
                                             , item
                                             , new UpdateOptions { IsUpsert = true });
                 return actionResult.IsAcknowledged
@@ -146,13 +142,13 @@ namespace DiabetesApi
             }
         }
 
-        public async Task<bool> UpdatePatientNumber(string id, int patient_nbr)
+        public async Task<bool> UpdateNumberOfMedication(int patient_nbr, int numberOfMedication)
         {
-            var item = await GetPatient(id) ?? new Patient();
-            item.patient_nbr = patient_nbr;
+            var item = await GetPatient(patient_nbr) ?? new Patient();
+            item.num_medications = numberOfMedication;
             item.UpdatedOn = DateTime.Now;
 
-            return await UpdatePatient(id, item);
+            return await UpdatePatient(patient_nbr, item);
         }
 
         public async Task<bool> RemoveAllPatients()
