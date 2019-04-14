@@ -32,7 +32,7 @@ namespace DiabetesApi.Controllers
 
         // GET api/Patients/Male - all patients with gender == ""
         // ex: http://localhost:53617/api/Patients/Test/2018-01-01/10000
-        [HttpGet("{gender}")]
+        [HttpGet("gender/{gender}")]
         public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
             return await _PatientRepository.GetPatient(gender)
@@ -55,9 +55,16 @@ namespace DiabetesApi.Controllers
 
         // PUT api/Patients/5 - updates a specific Patient
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]int value)
+        public void Put(int id, [FromBody]Patient value)
         {
-            _PatientRepository.UpdateNumberOfMedication(id, value);
+            _PatientRepository.UpdatePatient(id, value);
+        }
+
+        // PUT api/Patients/5 - updates a specific Patient
+        [HttpPut("{id}/{numberOfMedication}")]
+        public void Put_NumberOfMedication(int id, int numberOfMedication)
+        {
+            _PatientRepository.UpdateNumberOfMedication(id, numberOfMedication);
         }
 
         // DELETE api/Patients/5 - deletes a specific Patient

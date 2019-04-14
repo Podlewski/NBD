@@ -30,7 +30,6 @@ namespace DiabetesApi
             }
         }
 
-        // query after Id or InternalId (BSonId value)
         public async Task<Patient> GetPatient(int patient_nbr)
         {
             try
@@ -44,12 +43,10 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
 
-        // 
         public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
             try
@@ -102,34 +99,13 @@ namespace DiabetesApi
             }
         }
 
-        public async Task<bool> UpdatePatient(int patient_nbr, string diabetes_med)
-        {
-            var filter = Builders<Patient>.Filter.Eq(s => s.patient_nbr, patient_nbr);
-            var update = Builders<Patient>.Update
-                            .Set(s => s.diabetes_med, diabetes_med)
-                            .CurrentDate(s => s.UpdatedOn);
-
-            try
-            {
-                UpdateResult actionResult
-                    = await _context.Patients.UpdateOneAsync(filter, update);
-
-                return actionResult.IsAcknowledged
-                    && actionResult.ModifiedCount > 0;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public async Task<bool> UpdatePatient(int patient_nbr, Patient item)
         {
             try
             {
                 ReplaceOneResult actionResult
                     = await _context.Patients
-                                    .ReplaceOneAsync(n => n.patient_nbr.Equals(patient_nbr)
+                                    .ReplaceOneAsync(n => n.patient_nbr == patient_nbr
                                             , item
                                             , new UpdateOptions { IsUpsert = true });
                 return actionResult.IsAcknowledged
@@ -137,7 +113,6 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }
@@ -163,7 +138,6 @@ namespace DiabetesApi
             }
             catch (Exception ex)
             {
-                // log or manage the exception
                 throw ex;
             }
         }

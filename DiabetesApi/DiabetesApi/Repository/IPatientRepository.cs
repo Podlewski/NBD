@@ -20,8 +20,8 @@ namespace DiabetesApi
         // remove a single document / Patient
         Task<bool> RemovePatient(int id);
 
-        // update just a single document / Patient - field "diabetes_med"
-        Task<bool> UpdatePatient(int id, string diabetes_med);
+        // update just a single document / Patient
+        Task<bool> UpdatePatient(int id, Patient item);
 
         // update Patient number
         Task<bool> UpdateNumberOfMedication(int patient_nbr, int numberOfMedication);
