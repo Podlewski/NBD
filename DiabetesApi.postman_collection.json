@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "a56a6aed-8d41-4869-9aa6-8912c628208a",
+		"name": "DiabetesApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Patient (id)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients/82442376",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients",
+						"82442376"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get patients where gender = \"Male\"",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients/gender/Male",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients",
+						"gender",
+						"Male"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add One patient",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diabetes_med\": \"Yes\",\n    \"num_medications\": 11,\n    \"patient_nbr\": 77391171,\n    \"admission_type_id\": 2,\n    \"acarbose\": \"No\",\n    \"medical_specialty\": \"?\",\n    \"rosiglitazone\": \"No\",\n    \"glipizide\": \"No\",\n    \"gender\": \"Male\",\n    \"chlorpropamide\": \"No\",\n    \"metformin_rosiglitazone\": \"No\",\n    \"time_in_hospital\": 7,\n    \"examide\": \"No\",\n    \"readmitted\": \"<30\",\n    \"encounter_id\": 36900,\n    \"max_glu_serum\": \"None\",\n    \"num_lab_procedures\": 62,\n    \"change\": \"Ch\",\n    \"num_procedures\": 0,\n    \"diag_1\": \"157\",\n    \"insulin\": \"Steady\",\n    \"tolazamide\": \"No\",\n    \"a1_cresult\": \"None\",\n    \"number_outpatient\": 0,\n    \"glyburide\": \"Up\",\n    \"nateglinide\": \"No\",\n    \"glimepiride\": \"No\",\n    \"discharge_disposition_id\": 1,\n    \"payer_code\": \"?\",\n    \"age\": \"[60-70)\",\n    \"number_inpatient\": 0,\n    \"glimepiride_pioglitazone\": \"No\",\n    \"repaglinide\": \"No\",\n    \"miglitol\": \"No\",\n    \"tolbutamide\": \"No\",\n    \"weight\": \"?\",\n    \"pioglitazone\": \"No\",\n    \"citoglipton\": \"No\",\n    \"acetohexamide\": \"No\",\n    \"metformin\": \"No\",\n    \"troglitazone\": \"No\",\n    \"diag_2\": \"288\",\n    \"number_diagnoses\": 7,\n    \"glyburide_metformin\": \"No\",\n    \"diag_3\": \"197\",\n    \"glipizide_metformin\": \"No\",\n    \"metformin_pioglitazone\": \"No\",\n    \"admission_source_id\": 4,\n    \"race\": \"AfricanAmerican\",\n    \"number_emergency\": 0\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete patient with number 77391171",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients/77391171",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients",
+						"77391171"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update patient",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diabetes_med\": \"Yes\",\n    \"num_medications\": 11,\n    \"patient_nbr\": 77391171,\n    \"admission_type_id\": 2,\n    \"acarbose\": \"No\",\n    \"medical_specialty\": \"?\",\n    \"rosiglitazone\": \"No\",\n    \"glipizide\": \"No\",\n    \"gender\": \"Female\",\n    \"chlorpropamide\": \"No\",\n    \"metformin_rosiglitazone\": \"No\",\n    \"time_in_hospital\": 7,\n    \"examide\": \"No\",\n    \"readmitted\": \"<30\",\n    \"encounter_id\": 36900,\n    \"max_glu_serum\": \"None\",\n    \"num_lab_procedures\": 62,\n    \"change\": \"Ch\",\n    \"num_procedures\": 0,\n    \"diag_1\": \"157\",\n    \"insulin\": \"Steady\",\n    \"tolazamide\": \"No\",\n    \"a1_cresult\": \"None\",\n    \"number_outpatient\": 0,\n    \"glyburide\": \"Up\",\n    \"nateglinide\": \"No\",\n    \"glimepiride\": \"No\",\n    \"discharge_disposition_id\": 1,\n    \"payer_code\": \"?\",\n    \"age\": \"[60-70)\",\n    \"number_inpatient\": 0,\n    \"glimepiride_pioglitazone\": \"No\",\n    \"repaglinide\": \"No\",\n    \"miglitol\": \"No\",\n    \"tolbutamide\": \"No\",\n    \"weight\": \"?\",\n    \"pioglitazone\": \"No\",\n    \"citoglipton\": \"No\",\n    \"acetohexamide\": \"No\",\n    \"metformin\": \"No\",\n    \"troglitazone\": \"No\",\n    \"diag_2\": \"288\",\n    \"number_diagnoses\": 7,\n    \"glyburide_metformin\": \"No\",\n    \"diag_3\": \"197\",\n    \"glipizide_metformin\": \"No\",\n    \"metformin_pioglitazone\": \"No\",\n    \"admission_source_id\": 4,\n    \"race\": \"AfricanAmerican\",\n    \"number_emergency\": 0\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients/77391171",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients",
+						"77391171"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Number of medication For 77391171",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44331/api/patients/77391171/2137",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"api",
+						"patients",
+						"77391171",
+						"2137"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
