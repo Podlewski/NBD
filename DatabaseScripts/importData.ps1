@@ -18,9 +18,19 @@ if($interactive -eq $true){
 
 $env:Path += ';' + $path
 
-$command = 'mongoimport --jsonArray --db ' + $dbname + ' --collection ' + $collection + ' --file ' + $jsonFile
+$importCommand = 'mongoimport --jsonArray --db ' + $dbname + ' --collection ' + $collection + ' --file ' + $jsonFile
+$createUser = 'db.createUser(
+  {
+    user: `"admin`",
+    pwd: `"abc123!`",
+    roles: [ { role: `"root`", db: `"admin`" } ]
+  }
+);'
+$createUserCommand = "mongo admin --eval '" + $createUser + "'"
+
 Start-Process mongod
-Invoke-Expression $command
+Invoke-Expression $importCommand
+Invoke-Expression $createUserCommand
 
 <#
 .SYNOPSIS
