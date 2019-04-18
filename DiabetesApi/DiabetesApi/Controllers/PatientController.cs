@@ -17,20 +17,32 @@ namespace DiabetesApi.Controllers
             _PatientRepository = PatientRepository;
         }
 
+        /// <summary>
+        /// Pobranie wszystkich obiektów typu Patient z bazy danych.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<Patient>> Get()
         {
             return await _PatientRepository.GetAllPatients();
         }
 
-        // GET api/Patients/5 - retrieves a specific Patient using either Id or InternalId (BSonId)
+        /// <summary>
+        /// Pobranie wszystkich obiektów typu Patient z bazy danych na podstawie numeru pacjenta (nbr).
+        /// </summary>
+        /// <param name="patient_nbr">Numer pacjenta (ID)</param>
+        /// <returns></returns>
         [HttpGet("{patient_nbr}")]
         public async Task<Patient> Get(int patient_nbr)
         {
             return await _PatientRepository.GetPatient(patient_nbr) ?? new Patient();
         }
 
-        // GET api/Patients/Male - all patients with gender == ""
+        /// <summary>
+        /// Pobranie wszystkich obiektów typu Patient z bazy danych na podstawie płci.
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
         [HttpGet("gender/{gender}")]
         public async Task<IEnumerable<Patient>> GetPatient(string gender)
         {
@@ -38,7 +50,10 @@ namespace DiabetesApi.Controllers
                         ?? new List<Patient>();
         }
 
-        // POST api/Patients - creates a new Patient
+        /// <summary>
+        /// Utworzenie nowego obiektu typu Patient.
+        /// </summary>
+        /// <param name="newPatient">Obiekt w JSONie</param>
         [HttpPost]
         public void Post([FromBody] Patient newPatient)
         {
@@ -103,21 +118,32 @@ namespace DiabetesApi.Controllers
             });
         }
 
-        // PUT api/Patients/5 - updates a specific Patient
+        /// <summary>
+        /// Aktualizacja wybranego obiektu typu Patient z bazy danych na podstawie ID.
+        /// </summary>
+        /// <param name="id">Numer pacjenta (ID)</param>
+        /// <param name="value">Dane do zaktualizowania w JSONie</param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]Patient value)
         {
             _PatientRepository.UpdatePatient(id, value);
         }
 
-        // PUT api/Patients/5 - updates a specific Patient
+        /// <summary>
+        /// Aktualizacja liczby leków przyjmowanych przez pacjetna
+        /// </summary>
+        /// <param name="id">Numer pacjenta (ID)</param>
+        /// <param name="numberOfMedication">Nowa ilość leków</param>
         [HttpPut("{id}/{numberOfMedication}")]
         public void Put_NumberOfMedication(int id, int numberOfMedication)
         {
             _PatientRepository.UpdateNumberOfMedication(id, numberOfMedication);
         }
 
-        // DELETE api/Patients/5 - deletes a specific Patient
+        /// <summary>
+        /// Usunięcie wybranego obiektu typu Patient z bazy danych na podstawie ID.
+        /// </summary>
+        /// <param name="id">Numer pacjenta (ID)</param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
