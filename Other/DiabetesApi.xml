@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DiabetesApi</name>
+    </assembly>
+    <members>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Get">
+            <summary>
+            Pobranie wszystkich obiektów typu Patient z bazy danych.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Get(System.Int32)">
+            <summary>
+            Pobranie wszystkich obiektów typu Patient z bazy danych na podstawie numeru pacjenta (nbr).
+            </summary>
+            <param name="patient_nbr">Numer pacjenta (ID)</param>
+            <returns></returns>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.GetPatient(System.String)">
+            <summary>
+            Pobranie wszystkich obiektów typu Patient z bazy danych na podstawie płci.
+            </summary>
+            <param name="gender"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Post(DiabetesApi.Model.Patient)">
+            <summary>
+            Utworzenie nowego obiektu typu Patient.
+            </summary>
+            <param name="newPatient">Obiekt w JSONie</param>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Put(System.Int32,DiabetesApi.Model.Patient)">
+            <summary>
+            Aktualizacja wybranego obiektu typu Patient z bazy danych na podstawie ID.
+            </summary>
+            <param name="id">Numer pacjenta (ID)</param>
+            <param name="value">Dane do zaktualizowania w JSONie</param>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Put_NumberOfMedication(System.Int32,System.Int32)">
+            <summary>
+            Aktualizacja liczby leków przyjmowanych przez pacjetna
+            </summary>
+            <param name="id">Numer pacjenta (ID)</param>
+            <param name="numberOfMedication">Nowa ilość leków</param>
+        </member>
+        <member name="M:DiabetesApi.Controllers.PatientsController.Delete(System.Int32)">
+            <summary>
+            Usunięcie wybranego obiektu typu Patient z bazy danych na podstawie ID.
+            </summary>
+            <param name="id">Numer pacjenta (ID)</param>
+        </member>
+    </members>
+</doc>
