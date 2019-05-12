@@ -30,32 +30,32 @@ services:
           - /mongo_cluster/data2:/data/db  
           
     #shard2 replica set
-    #mongors2n1:
-    #    container_name: mongors2n1
-    #    image: mongo
-    #    command: mongod --shardsvr --replSet mongors2 --dbpath /data/db --port 27017
-    #    ports:
-    #      - 27019:27017
-    #    expose:
-    #      - "27017"
-    #    environment:
-    #      TERM: xterm
-    #    volumes:
-    #      - /etc/localtime:/etc/localtime:ro
-    #      - /mongo_cluster/data3:/data/db    
-    #mongors2n2:
-    #    container_name: mongors2n2
-    #    image: mongo
-    #    command: mongod --shardsvr --replSet mongors2 --dbpath /data/db --port 27017
-    #    ports:
-    #      - 27020:27017
-    #    expose:
-    #      - "27017"
-    #    environment:
-    #      TERM: xterm
-    #    volumes:
-    #      - /etc/localtime:/etc/localtime:ro
-    #      - /mongo_cluster/data4:/data/db  
+    mongors2n1:
+        container_name: mongors2n1
+        image: mongo
+        command: mongod --shardsvr --replSet mongors2 --dbpath /data/db --port 27017
+        ports:
+          - 27037:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /mongo_cluster/data3:/data/db    
+    mongors2n2:
+        container_name: mongors2n2
+        image: mongo
+        command: mongod --shardsvr --replSet mongors2 --dbpath /data/db --port 27017
+        ports:
+          - 27047:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /mongo_cluster/data4:/data/db  
           
     #config server replica set
     mongocfg1:
@@ -111,9 +111,9 @@ services:
           - /etc/localtime:/etc/localtime:ro
     #API
     api:
-        builds: .../DiabetesApi/DiabetesApi
+        build: ../DiabetesApi/DiabetesApi
         ports:
-            - 27020:27017
+            - 27030:27017
         depends_on:
             - mongos1
             - mongos2            
