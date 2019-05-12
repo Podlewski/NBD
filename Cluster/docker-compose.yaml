@@ -109,4 +109,11 @@ services:
           - "27017"
         volumes:
           - /etc/localtime:/etc/localtime:ro
-    
+    #API
+    api:
+        builds: .../DiabetesApi/DiabetesApi
+        ports:
+            - 27020:27017
+        depends_on:
+            - mongos1
+            - mongos2            
