@@ -90,6 +90,9 @@ services:
           - mongocfg1
           - mongocfg2
         command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: abc123!
         ports:
           - 27019:27017
         expose:
@@ -103,6 +106,9 @@ services:
           - mongocfg1
           - mongocfg2
         command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: abc123!
         ports:
           - 27020:27017
         expose:
@@ -113,7 +119,7 @@ services:
     api:
         build: ../DiabetesApi/DiabetesApi
         ports:
-            - 27030:27017
+            - 5000:80
         depends_on:
             - mongos1
             - mongos2            

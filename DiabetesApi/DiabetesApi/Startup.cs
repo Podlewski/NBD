@@ -31,6 +31,8 @@ namespace DiabetesApi
                     = Configuration.GetSection("MongoConnection:ConnectionString").Value;
                 options.Database
                     = Configuration.GetSection("MongoConnection:Database").Value;
+                options.Container = Configuration.GetSection("MongoConnection:Container").Value;
+
             });
             services.AddTransient<IPatientRepository, PatientRepository>();
 

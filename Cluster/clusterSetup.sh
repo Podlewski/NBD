@@ -12,12 +12,12 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding shard2"
 docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors2/mongors2n1\")' | mongo "
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ creating diabetes db"
 docker exec -it mongors1n1 bash -c "echo 'use diabetes' | mongo"
-sleep 3
+sleep 1
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ enabling sharding on diabetes db"
 docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"diabetes\")' | mongo "
-sleep 3
+sleep 1
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ creating colletion in diabetes db"
 docker exec -it mongors1n1 bash -c "echo 'db.createCollection(\"diabetes.collection\")' | mongo "
-sleep 3
+sleep 1
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ enabling sharding on diabetes.colletion"
 docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"diabetes.collection\", {\"encounter_id\" : \"hashed\"})' | mongo"
