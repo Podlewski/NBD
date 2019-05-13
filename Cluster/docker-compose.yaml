@@ -89,10 +89,7 @@ services:
         depends_on:
           - mongocfg1
           - mongocfg2
-        command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: abc123!
+        command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017 --bind_ip_all
         ports:
           - 27019:27017
         expose:
@@ -105,10 +102,7 @@ services:
         depends_on:
           - mongocfg1
           - mongocfg2
-        command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: abc123!
+        command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017 --port 27017 --bind_ip_all
         ports:
           - 27020:27017
         expose:
