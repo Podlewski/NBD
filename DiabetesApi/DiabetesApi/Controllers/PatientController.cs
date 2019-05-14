@@ -1,5 +1,7 @@
 ﻿using DiabetesApi.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace DiabetesApi.Controllers
     public class PatientsController : Controller
     {
         private readonly IPatientRepository _PatientRepository;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public PatientsController(IPatientRepository PatientRepository)
         {
@@ -24,6 +27,7 @@ namespace DiabetesApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Patient>> Get()
         {
+            logger.Warn("GET START");
             return await _PatientRepository.GetAllPatients();
         }
 

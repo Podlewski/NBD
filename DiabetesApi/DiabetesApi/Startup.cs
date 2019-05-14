@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
@@ -54,7 +57,7 @@ namespace DiabetesApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -64,7 +67,8 @@ namespace DiabetesApi
             {
                 app.UseHsts();
             }
-
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("nlog.config");
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();

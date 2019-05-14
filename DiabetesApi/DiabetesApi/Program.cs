@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using NLog.Web;
 
 namespace DiabetesApi
 {
@@ -12,6 +13,7 @@ namespace DiabetesApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseNLog()
                 .UseStartup<Startup>();
     }
 }
