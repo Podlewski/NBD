@@ -45,7 +45,7 @@ Wykorzystane narzędzia: [Docker Toolbox for Windows](https://download.docker.co
 2. W obu terminalach wchodzimy do naszego repozytorium, a w nim do folderu _Cluster_ (polecenie `cd Cluster`).
 
 3. W pierwszym z nich wpisujemy
-`docer-compose build` oraz `docer-compose up`.
+`docker-compose build` oraz `docker-compose up`.
 	
 4. W drugim, kiedy odczekamy chwilę, uruchamiamy skrypt **clusterSetup** poleceniem `./clusterSetup.sh`.
 	> __UWAGA:__ Ważne jest, aby żadna z operacji nie zwróciła wyjątku _exception: connect failed_,  co się może zdarzyć szczególnie przy dodawaniu shardów. W takim wypadku należy odczekać więcej czasu na załadowanie się wszystkiego. Można sprawdzić czy wszystko działa poprawnie poleceniami `docker ps -a` (każdy kontener powinien mieć status _up_) oraz `docker exec -it mongos1 bash` (powinniśmy móc wejść do kontenera, wychodzimy za pomocą `exit`). Jeżeli jedno i drugie zachowuje się tak jak powinno, wtedy możemy odpalić skrypt jeszcze raz.
