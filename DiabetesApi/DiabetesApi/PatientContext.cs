@@ -19,7 +19,7 @@ namespace DiabetesApi
         {
             get
             {
-                return _database.GetCollection<Patient>("scriptTest");
+                return _database.GetCollection<Patient>("allData");
             }
         }
     }
