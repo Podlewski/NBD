@@ -8,16 +8,17 @@ docker exec -i mongors1n1 bash -c "echo 'rs.initiate({_id : \"mongors1\", member
 #docker exec -i mongors2n1 bash -c "echo 'rs.initiate({_id : \"mongors2\", members: [{ _id : 0, host : \"mongors2n1\" },{ _id : 1, host : \"mongors2n2\" }]})' | mongo"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding shard1"
 docker exec -i mongos1 bash -c "echo 'sh.addShard(\"mongors1/mongors1n1\")' | mongo "
+sleep 2
 #echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding shard2"
 #docker exec -i mongos1 bash -c "echo 'sh.addShard(\"mongors2/mongors2n1\")' | mongo "
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ creating diabetes db"
 docker exec -i mongors1n1 bash -c "echo 'use diabetes' | mongo"
-sleep 1
+sleep 2
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ enabling sharding on diabetes db"
 docker exec -i mongos1 bash -c "echo 'sh.enableSharding(\"diabetes\")' | mongo "
-sleep 1
+sleep 2
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ creating colletion in diabetes db"
 docker exec -i mongors1n1 bash -c "echo 'db.createCollection(\"diabetes.collection\")' | mongo "
-sleep 1
+sleep 2
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ enabling sharding on diabetes.colletion"
 docker exec -i mongos1 bash -c "echo 'sh.shardCollection(\"diabetes.collection\", {\"encounter_id\" : \"hashed\"})' | mongo"
