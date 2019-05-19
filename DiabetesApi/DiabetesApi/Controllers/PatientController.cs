@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NLog;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,6 +30,16 @@ namespace DiabetesApi.Controllers
         {
             logger.Warn("GET START");
             return await _PatientRepository.GetAllPatients();
+        }
+
+        /// <summary>
+        /// Pobieranie określonej liczby pacjentów z bazy
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("take/{amount}")]
+        public async Task<IEnumerable<Patient>> Take(int amount)
+        {
+            return await _PatientRepository.GetNumberOfPatients(amount);
         }
 
         /// <summary>

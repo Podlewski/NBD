@@ -9,9 +9,14 @@ namespace DiabetesApi
     {
         // get all patients as collection
         Task<IEnumerable<Patient>> GetAllPatients();
+
+        //get number of all patients
+        Task<IEnumerable<Patient>> GetNumberOfPatients(int amount);
+
+        // get one patient with certain number
         Task<Patient> GetPatient(int patient_nbr);
 
-        // query for list of patients
+        // query for list of patients with certain gender
         Task<IEnumerable<Patient>> GetPatient(string gender);
 
         // add new Patient document

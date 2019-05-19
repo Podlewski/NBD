@@ -30,6 +30,18 @@ namespace DiabetesApi
             }
         }
 
+        public async Task<IEnumerable<Patient>> GetNumberOfPatients(int amount)
+        {
+            try
+            {
+                return await _context.Patients.Find(x => true).Limit(amount).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<Patient> GetPatient(int patient_nbr)
         {
             try
