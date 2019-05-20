@@ -29,6 +29,20 @@ services:
           - /etc/localtime:/etc/localtime:ro
           - /mongo_cluster/data2:/data/db  
           
+    mongors1n3:
+        container_name: mongors1n3
+        image: mongo
+        command: mongod --shardsvr --replSet mongors1 --dbpath /data/db --port 27017
+        ports:
+          - 27028:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /mongo_cluster/data3:/data/db  
+          
     #shard2 replica set
     mongors2n1:
         container_name: mongors2n1
@@ -42,7 +56,7 @@ services:
           TERM: xterm
         volumes:
           - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data3:/data/db    
+          - /mongo_cluster/data4:/data/db    
     mongors2n2:
         container_name: mongors2n2
         image: mongo
@@ -55,8 +69,22 @@ services:
           TERM: xterm
         volumes:
           - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data4:/data/db  
-          
+          - /mongo_cluster/data5:/data/db  
+
+    mongors2n3:
+        container_name: mongors2n3
+        image: mongo
+        command: mongod --shardsvr --replSet mongors2 --dbpath /data/db --port 27017
+        ports:
+          - 27048:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /mongo_cluster/data6:/data/db
+    
     #config server replica set
     mongocfg1:
         container_name: mongocfg1
