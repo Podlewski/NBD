@@ -11,10 +11,10 @@ docker exec -i mongors2n1 bash -c "echo 'rs.initiate({_id : \"mongors2\", member
 sleep 2
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding shard1"
 docker exec -i mongos1 bash -c "echo 'sh.addShard(\"mongors1/mongors1n1\")' | mongo "
-sleep 2
+sleep 5
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding shard2"
 docker exec -i mongos1 bash -c "echo 'sh.addShard(\"mongors2/mongors2n1\")' | mongo "
-sleep 2
+sleep 5
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ creating diabetes db"
 docker exec -i mongors1n1 bash -c "echo 'use diabetes' | mongo"
 sleep 2
