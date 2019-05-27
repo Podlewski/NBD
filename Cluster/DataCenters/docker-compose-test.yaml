@@ -1,0 +1,29 @@
+version: '3'
+services:
+    #shards
+    #shard1 replica set
+    mongo1:
+        image: mongo
+        command: mongod --replSet mongors1 --dbpath /data/db --port 27017
+        ports:
+          - 27017:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm 
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
+    mongo2:
+        image: mongo
+        command: mongod --replSet mongors1 --dbpath /data/db --port 27017
+        ports:
+          - 27027:27017
+        expose:
+          - "27017"
+        environment:
+          TERM: xterm
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
+   

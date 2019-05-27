@@ -1,0 +1,27 @@
+Stworzenie maszyny:
+	docker-machine create --driver virtualbox center1
+	
+Ustawienie domyslnej maszyny jako center1: 
+	eval $(docker-machine env center1)
+
+Pobranie ip maszyny: 
+	docker-machine ip {maszyna}
+
+Inicjalizacja swarma: 
+	docker swarm init --advertise-addr $(docker-machine ip center1):2377
+
+Dodanie center2 do swarma: 
+	docker-machine ssh center2 "$(docker swarm join-token worker | grep -e '--token')"
+	
+Dodanie labela:
+	docker node update --label-add mongo.datacenter=1 $(docker node ls -qf name=center1)
+	
+Uruchomienie kontenerow: 
+	docker stack deploy -c docker-compose.yaml test
+
+Polaczenie sie z terminalem kontenera: 
+	docker exec -it $(docker ps -qf name=mongo1) bash
+	
+Wyswietlenie node'ow w swarmie:
+	docker node ls
+	
