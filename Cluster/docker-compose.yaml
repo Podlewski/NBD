@@ -12,9 +12,9 @@ services:
           - "27017"
         environment:
           TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data1:/data/db    
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
     mongors1n2:
         container_name: mongors1n2
         image: mongo
@@ -24,11 +24,10 @@ services:
         expose:
           - "27017"
         environment:
-          TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data2:/data/db  
-          
+          TERM: xterm  
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]  
     mongors1n3:
         container_name: mongors1n3
         image: mongo
@@ -39,9 +38,9 @@ services:
           - "27017"
         environment:
           TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data3:/data/db  
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
           
     #shard2 replica set
     mongors2n1:
@@ -53,10 +52,10 @@ services:
         expose:
           - "27017"
         environment:
-          TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data4:/data/db    
+          TERM: xterm  
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
     mongors2n2:
         container_name: mongors2n2
         image: mongo
@@ -67,10 +66,9 @@ services:
           - "27017"
         environment:
           TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data5:/data/db  
-
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
     mongors2n3:
         container_name: mongors2n3
         image: mongo
@@ -81,9 +79,9 @@ services:
           - "27017"
         environment:
           TERM: xterm
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/data6:/data/db
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
     
     #config server replica set
     mongocfg1:
@@ -94,9 +92,9 @@ services:
           TERM: xterm
         expose:
           - "27017"
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/config1:/data/db
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
           
     mongocfg2:
         container_name: mongocfg2
@@ -106,9 +104,9 @@ services:
           TERM: xterm
         expose:
           - "27017"
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-          - /mongo_cluster/config2:/data/db
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
           
     #routers
     mongos1:
@@ -122,8 +120,9 @@ services:
           - 27019:27017
         expose:
           - "27017"
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
     mongos2:
         container_name: mongos2
         image: mongo
@@ -135,13 +134,25 @@ services:
           - 27020:27017
         expose:
           - "27017"
-        volumes:
-          - /etc/localtime:/etc/localtime:ro
-    #API
-    api:
-        build: ../DiabetesApi/DiabetesApi
-        ports:
-            - 5000:80
-        depends_on:
-            - mongos1
-            - mongos2            
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]
+    # #API
+    # api1:
+    #     build: ../DiabetesApi/DiabetesApi
+    #     ports:
+    #         - 5000:80
+    #     depends_on:
+    #         - mongos1    
+    #     deploy:
+    #         placement:
+    #             constraints: [node.labels.mongo.datacenter == 1]
+    # api2:
+    #     build: ../DiabetesApi/DiabetesApi
+    #     ports:
+    #         - 6000:80
+    #     depends_on:
+    #         - mongos2
+    #     deploy:
+    #         placement:
+    #             constraints: [node.labels.mongo.datacenter == 2]

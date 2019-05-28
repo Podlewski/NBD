@@ -25,3 +25,8 @@ Polaczenie sie z terminalem kontenera:
 Wyswietlenie node'ow w swarmie:
 	docker node ls
 	
+Usuwanie całego stacka:
+	docker stack rm test
+
+Pokazanie node'ow dla danego 'center'
+	docker node ps center2
