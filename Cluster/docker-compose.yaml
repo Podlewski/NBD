@@ -137,22 +137,22 @@ services:
         deploy:
             placement:
                 constraints: [node.labels.mongo.datacenter == 2]
-    # #API
-    # api1:
-    #     build: ../DiabetesApi/DiabetesApi
-    #     ports:
-    #         - 5000:80
-    #     depends_on:
-    #         - mongos1    
-    #     deploy:
-    #         placement:
-    #             constraints: [node.labels.mongo.datacenter == 1]
-    # api2:
-    #     build: ../DiabetesApi/DiabetesApi
-    #     ports:
-    #         - 6000:80
-    #     depends_on:
-    #         - mongos2
-    #     deploy:
-    #         placement:
-    #             constraints: [node.labels.mongo.datacenter == 2]
+    #API
+    api1:
+        image: diabetesapi
+        ports:
+            - 5000:80
+        depends_on:
+            - mongos1    
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 1]
+    api2:
+        image: diabetesapi
+        ports:
+            - 6000:80
+        depends_on:
+            - mongos2
+        deploy:
+            placement:
+                constraints: [node.labels.mongo.datacenter == 2]

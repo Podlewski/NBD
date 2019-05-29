@@ -30,3 +30,7 @@ Usuwanie całego stacka:
 
 Pokazanie node'ow dla danego 'center'
 	docker node ps center2
+	
+######################
+Wchodzimy do katalogu z Api
+	docker build --tag diabetesapi .	
