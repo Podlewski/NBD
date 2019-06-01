@@ -139,7 +139,7 @@ services:
                 constraints: [node.labels.mongo.datacenter == 2]
     #API
     api1:
-        image: diabetesapi
+        image: diabetesapi1
         ports:
             - 5000:80
         depends_on:
@@ -148,7 +148,7 @@ services:
             placement:
                 constraints: [node.labels.mongo.datacenter == 1]
     api2:
-        image: diabetesapi
+        image: diabetesapi2
         ports:
             - 6000:80
         depends_on:
