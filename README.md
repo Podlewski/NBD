@@ -1,6 +1,8 @@
 # Nierelacyjne bazy danych
 
-#### Skład grupy
+## Opis projektu
+
+### Skład grupy
 
 - Paweł Galewicz 210182
 - Justyna Hubert 210200
@@ -9,9 +11,9 @@
 
 ------------
 
-### Etap 1
+## Etap 1
 
-#### Rest API - wymagania
+### Rest API - wymagania
 
 Wymagane narzędzia Visual Studio:
 
@@ -22,7 +24,7 @@ Wymagane pakiety NuGet:
 
 - mongocsharpdriver
 
-#### Tworzenie bazy danych
+### Tworzenie bazy danych
 
 Aby móc skorzystać z skryptów, należy uruchomić PowerShell jako administrator i wpisać:
 
@@ -40,9 +42,9 @@ aby uzyskać pomoc dotyczącą używania skyptu.
 
 ------------
 
-### Etap 2
+## Etap 2
 
-#### Przygotowanie środowiska na dockerowych kontenerach
+### Przygotowanie środowiska na dockerowych kontenerach
 
 Wykorzystane narzędzia: [Docker Toolbox for Windows](https://download.docker.com/win/stable/DockerToolbox.exe)
 
@@ -66,9 +68,9 @@ Wykorzystane narzędzia: [Docker Toolbox for Windows](https://download.docker.co
 
 ------------
 
-### Etap 3
+## Etap 3
 
-#### Odpalanie dockerowych kontenerów
+### Odpalanie dockerowych kontenerów
 
 1. Uruchamiamy __Docker Quickstart Terminal__, po czym wchodzimy do folderu _Cluster_.
 
@@ -77,16 +79,33 @@ Wykorzystane narzędzia: [Docker Toolbox for Windows](https://download.docker.co
 3. Musimy przełączyć się `eval $(docker-machine env center1)`
    > __UWAGA:__ Żeby sprawdzić, czy wszystko przebiega poprawnie do tego momentu, należy skorzystać z polecenia `docker-machine ls`, które powinno ukazać nam 3 działąjące maszyny, z __\*__ przy kolumnie aktywności dla maszyny __center1__.
 
-4. `docker stack deploy -c docker-compose.yaml test`
+4. Ręcznie generujemy obrazy API wykorzystując Dockerfile. W tym celu otwieramy plik _appsettings.json_, gdzie zmieniamy IP w _ConnectionStringu_ na to wybranej maszyny, po czym z pomocą polecenia `docker build --tag diabetesapi1 ../DiabetesApi/DiabetesApi/` (zakładając, że wciąż jesteśmy w terminalu w folderze _Cluster_).
+   > __UWAGA:__ Poleceniem `docker-machine ls` sprawdzimy IP maszyn.
 
-5. `./DataCenters/dataCenterClusterSetup.sh`
+5. Robimy to samo dla drugiej maszyny, uprzednio przełączając się na __center2__ za pomcoą `eval $(docker-machine env center1)`, po czym wpisujemy `docker build --tag diabetesapi2 ../DiabetesApi/DiabetesApi/` (pamiętając o zmianie IP w _appsettings.json_). Po czym znowu wracamy na __center1__.
 
-6. Sprawdzamy IP maszyn za pomocą `docker-machine ls`.
+6. `docker stack deploy -c docker-compose.yaml test`
 
-7. Ręcznie generujemy obrazy API wykorzystując Dockerfile. W tym celu otwieramy plik _appsettings.json_, gdzie zmieniamy IP w _ConnectionStringu_ na to wybranej maszyny, po czym z pomocą polecenia `docker build --tag diabetesapi1 ../DiabetesApi/DiabetesApi/` (zakładając, że wciąż jesteśmy w terminalu w folderze _Cluster_).
+7. `./DataCenters/dataCenterClusterSetup.sh`
+   > __UWAGA:__ Przydanie okaże się polecenie `docker service ls`, którym sprawdzimy stan kontenerów.
 
-8. Robimy to samo dla drugiej maszyny, tym razem z poleceniem `docker build --tag diabetesapi2 ../DiabetesApi/DiabetesApi/` (pamiętając o zmianie IP w _appsettings.json_).
+8. Wypełniamy danymi maszynę __center1__ z pomocą polecenia `./fillMachine.sh` __`IP_MASZNY`__.
+   > __UWAGA:__ Poleceniem `docker-machine ls` sprawdzimy IP maszyn.
 
-9. Wypełniamy danymi maszynę __center1__ z pomocą polecenia `./fillMachine.sh` __`IP_MASZNY`__.
+9. Nasze zapytania kierujemy na porty: 5000 dla  __center1__ oraz 6000 dla  __center2__.
 
-10. Nasze zapytania kierujemy na porty: 5000 dla  __center1__ oraz 6000 dla  __center2__.
+### Ustawianie wysokiej spójności danych
+
+1. Ustawiamy maszynę __center1__ jako główną `eval $(docker-machine env center1)`
+
+2. Pobieramy ID kontenera `docker ps | grep mongors1n1 | awk '{printf $1;}'`
+
+3. Wchodzimy do kontenera `docker exec -it` __`{ID_KONTENERA}`__ `mongo`
+
+4. Zapisujemy obecną konfigurację do zmiennej `cfg = rs.conf()`
+
+5. Zmieniamy wartość 'write concern' na majority `cfg.settings.getLastErrorDefaults.w = 'majority'`
+
+6. Rekonfigurujemy replicaset `rs.reconfig(cfg)`
+
+7. Powtarzamy kroki dla _mongors2n1_ maszyny __center2__.  
